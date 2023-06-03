@@ -7,6 +7,8 @@ class TicTacToeBoard(tk.Tk):
         self.title("Tic-Tac-Toe")
         # non-public dictionary for cells of the board
         self._cells = {}
+        self._create_board_display()
+        self._create_board_grid()
     
     def _create_board_display(self):
         # create the frame for display
@@ -53,3 +55,12 @@ class TicTacToeBoard(tk.Tk):
                     pady=5,
                     sticky="nsew",
                 )
+
+
+def main():
+    board = TicTacToeBoard()
+    board.mainloop()
+
+
+if __name__ == "__main__":
+    main()
