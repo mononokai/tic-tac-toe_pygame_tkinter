@@ -86,13 +86,13 @@ class TicTacToeGame:
         self.board_size = board_size
         self.current_player = next(self.players)
         self.winner_combo = []
-        self.__current_moves = []
-        self.__has_winner = False
+        self._current_moves = []
+        self._has_winner = False
         self._winning_combos = []
         self._setup_board()
 
     def _setup_board(self):
-        self.__current_moves = [
+        self._current_moves = [
             [Move(row, col) for col in range(self.board_size)]
             for row in range(self.board_size)
         ]
@@ -125,9 +125,19 @@ class TicTacToeGame:
             )
             is_win = (len(results) == 1) and ("" not in results)
             if is_win:
-                self.__has_winner = True
+                self._has_winner = True
                 self.winner_combo = combo
                 break
+
+    def has_winner(self):
+        return self._has_winner
+    
+    def is_tied(self):
+        no_winner = not self._has_winner
+        played_moves = (
+            move.label for row in self._current_moves for move in row
+        )
+        return no_winner and all(played_moves)
 
 
 def main():
