@@ -138,6 +138,9 @@ class TicTacToeGame:
             move.label for row in self._current_moves for move in row
         )
         return no_winner and all(played_moves)
+    
+    def toggle_player(self):
+        self.current_player = next(self.players)
 
 
 def main():
