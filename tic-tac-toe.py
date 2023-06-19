@@ -104,6 +104,16 @@ class TicTacToeBoard(tk.Tk):
                 clicked_button.config(text=self._game.current_player.label)
                 clicked_button.config(fg=self._game.current_player.color)
 
+            def _update_display(self, msg, color="black"):
+                self.display["test"] = msg
+                self.display["fg"] = color
+            
+            def _highlight_cells(self):
+                for button, coordinates in self._cells.items():
+                    row, col = coordinates
+                    if (row, col) in self._game.winner_combo:
+                        button.config(hightlightbackground="red")
+
 
 class TicTacToeGame:
     def __init__(self, players=DEFAULT_PLAYERS, board_size=BOARD_SIZE):
