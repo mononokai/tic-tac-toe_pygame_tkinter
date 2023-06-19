@@ -25,11 +25,12 @@ DEFAULT_PLAYERS = (
 
 
 class TicTacToeBoard(tk.Tk):
-    def __init__(self):
+    def __init__(self, game):
         super().__init__()
         self.title("Tic-Tac-Toe")
         # non-public dictionary for cells of the board
         self._cells = {}
+        self._game = game
         self._create_board_display()
         self._create_board_grid()
     
@@ -53,12 +54,12 @@ class TicTacToeBoard(tk.Tk):
         # place the Frame object on the window
         grid_frame.pack()
         # loop from 0-2 to get row coordinates
-        for row in range(3):
+        for row in range(self._game.board_size):
             # configure size of rows and columns
             self.rowconfigure(row, weight=1, minsize=50)
             self.columnconfigure(row, weight=1, minsize=75)
             # loop through the column coordinates to create buttons for each cell in the grid
-            for col in range(3):
+            for col in range(self._game.board_size):
                 button = tk.Button(
                     master=grid_frame,
                     text="",
