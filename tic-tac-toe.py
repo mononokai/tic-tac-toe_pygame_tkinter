@@ -117,9 +117,9 @@ class TicTacToeBoard(tk.Tk):
 
 class TicTacToeGame:
     def __init__(self, players=DEFAULT_PLAYERS, board_size=BOARD_SIZE):
-        self.players = cycle(players)
+        self._players = cycle(players)
         self.board_size = board_size
-        self.current_player = next(self.players)
+        self.current_player = next(self._players)
         self.winner_combo = []
         self._current_moves = []
         self._has_winner = False
@@ -148,10 +148,11 @@ class TicTacToeGame:
         col = move.col
         move_was_not_played = self._current_moves[row][col].label == ""
         no_winner = not self._has_winner
-        return no_winner and move_was_not_played
+        return move_was_not_played and no_winner
         
     def process_move(self, move):
-        row, col = move.row, move.col
+        row = move.row
+        col = move.col
         self._current_moves[row][col] = move
         for combo in self._winning_combos:
             results = set(
@@ -175,7 +176,7 @@ class TicTacToeGame:
         return no_winner and all(played_moves)
     
     def toggle_player(self):
-        self.current_player = next(self.players)
+        self.current_player = next(self._players)
 
 
 def main():
