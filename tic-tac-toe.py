@@ -71,6 +71,8 @@ class TicTacToeBoard(tk.Tk):
                 )
                 # add the buttons to the ._cells dictionary with buttons being keys and row/col numbers being values
                 self._cells[button] = (row, col)
+                # bind the buttons to the play() method
+                button.bind("<ButtonPress-1>", self.play)
                 # add each button to the window with some styling
                 button.grid(
                     row=row,
@@ -79,6 +81,24 @@ class TicTacToeBoard(tk.Tk):
                     pady=5,
                     sticky="nsew",
                 )
+        def play(self, event):
+            clicked_button = event.widget
+            row, col = self._cells[clicked_button]
+            move = Move(row, col, self._game.current_player.label)
+            if self._game.is_valid_move(move):
+                self._update_button(clicked_button)
+                self._game.process_move(move)
+                if self._game.is_tied():
+                    self._update_display(msg="Tie game!", color="red")
+                elif self._game.has_winner():
+                    self._highlight_cells()
+                    msd = f"{self._game.current_player.label} won!"
+                    color = self._game.current_player.color
+                    self._update_display(msg, color)
+                else:
+                    self._game.toggle_player
+                    msg = f"{self._game.current_player.label}'s turn"
+                    self._update_display(msg)
 
 
 class TicTacToeGame:
