@@ -97,9 +97,16 @@ class TicTacToeGame:
             for row in range(self.board_size)
         ]
         self._winning_combos_ = self._get_winning_combos()
-    
-    
 
+    def _get_winning_combos(self):
+        rows = [
+            [(move.row, move.col) for move in row]
+            for row in self.__current_moves
+        ]
+        columns = [list(col) for col in zip(*rows)]
+        first_diagonal = [row[i] for i, row in enumerate(rows)]
+        second_diagonal = [col[j] for j, col in enumerate(reversed(columns))]
+        return rows + columns + [first_diagonal, second_diagonal]
 
 def main():
     board = TicTacToeBoard()
