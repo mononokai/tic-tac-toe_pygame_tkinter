@@ -99,6 +99,10 @@ class TicTacToeBoard(tk.Tk):
                     self._game.toggle_player
                     msg = f"{self._game.current_player.label}'s turn"
                     self._update_display(msg)
+            
+            def _update_button(self, clicked_button):
+                clicked_button.config(text=self._game.current_player.label)
+                clicked_button.config(fg=self._game.current_player.color)
 
 
 class TicTacToeGame:
