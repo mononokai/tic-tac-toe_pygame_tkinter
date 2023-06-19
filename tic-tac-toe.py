@@ -112,7 +112,7 @@ class TicTacToeBoard(tk.Tk):
         for button, coordinates in self._cells.items():
             row, col = coordinates
             if (row, col) in self._game.winner_combo:
-                button.config(hightlightbackground="red")
+                button.config(highlightbackground="red")
 
 
 class TicTacToeGame:
