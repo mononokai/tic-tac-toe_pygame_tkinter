@@ -94,8 +94,11 @@ class TicTacToeGame:
     def _setup_board(self):
         self.__current_moves = [
             [Move(row, col) for col in range(self.board_size)]
-            for row in 
+            for row in range(self.board_size)
         ]
+        self._winning_combos_ = self._get_winning_combos()
+    
+    
 
 
 def main():
