@@ -107,6 +107,14 @@ class TicTacToeGame:
         first_diagonal = [row[i] for i, row in enumerate(rows)]
         second_diagonal = [col[j] for j, col in enumerate(reversed(columns))]
         return rows + columns + [first_diagonal, second_diagonal]
+    
+    def is_valid_move(self, move):
+        row = move.row
+        col = move.col
+        move_was_not_played = self.__current_moves[row][col].label == ""
+        no_winner = not self.__has_winner
+        return no_winner and move_was_not_played
+    
 
 def main():
     board = TicTacToeBoard()
