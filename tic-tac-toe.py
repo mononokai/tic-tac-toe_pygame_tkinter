@@ -16,6 +16,14 @@ class Move(NamedTuple):
     col: int
     label: str = ""
 
+
+BOARD_SIZE = 3
+DEFAULT_PLAYERS = (
+    Player(label="X", color="blue"),
+    Player(label="O", color="green"),
+)
+
+
 class TicTacToeBoard(tk.Tk):
     def __init__(self):
         super().__init__()
