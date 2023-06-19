@@ -1,4 +1,5 @@
 import tkinter as tk
+from itertools import cycle
 from tkinter import font
 from typing import NamedTuple
 
@@ -69,6 +70,24 @@ class TicTacToeBoard(tk.Tk):
                     pady=5,
                     sticky="nsew",
                 )
+
+
+class TicTacToeGame:
+    def __init__(self, players=DEFAULT_PLAYERS, board_size=BOARD_SIZE):
+        self.players = cycle(players)
+        self.board_size = board_size
+        self.current_player = next(self.players)
+        self.winner_combo = []
+        self.__current_moves = []
+        self.__has_winner = False
+        self._winning_combos_ = []
+        self._setup_board()
+
+    def _setup_board(self):
+        self.__current_moves = [
+            [Move(row, col) for col in range(self.board_size)]
+            for row in 
+        ]
 
 
 def main():
