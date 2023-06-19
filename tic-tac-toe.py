@@ -88,7 +88,7 @@ class TicTacToeGame:
         self.winner_combo = []
         self.__current_moves = []
         self.__has_winner = False
-        self._winning_combos_ = []
+        self._winning_combos = []
         self._setup_board()
 
     def _setup_board(self):
@@ -96,7 +96,7 @@ class TicTacToeGame:
             [Move(row, col) for col in range(self.board_size)]
             for row in range(self.board_size)
         ]
-        self._winning_combos_ = self._get_winning_combos()
+        self._winning_combos = self._get_winning_combos()
 
     def _get_winning_combos(self):
         rows = [
@@ -114,7 +114,21 @@ class TicTacToeGame:
         move_was_not_played = self.__current_moves[row][col].label == ""
         no_winner = not self.__has_winner
         return no_winner and move_was_not_played
-    
+        
+    def process_move(self, move):
+        row, col = move.row, move.col
+        self.__current_moves[row][col] = move
+        for combo in self._winning_combos:
+            results = set(
+                self.__current_moves[n][m].label
+                for n, m in combo
+            )
+            is_win = (len(results) == 1) and ("" not in results)
+            if is_win:
+                self.__has_winner = True
+                self.winner_combo = combo
+                break
+
 
 def main():
     board = TicTacToeBoard()
