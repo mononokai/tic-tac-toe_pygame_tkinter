@@ -121,7 +121,7 @@ class TicTacToeBoard(tk.Tk):
         file_menu = tk.Menu(master=menu_bar)
         file_menu.add_command(
             label="Play Again",
-            command=self._game.reset_board,
+            command=self.reset_board,
         )
         file_menu.add_separator()
         file_menu.add_command(
@@ -132,6 +132,14 @@ class TicTacToeBoard(tk.Tk):
             label="File",
             menu=file_menu,
         )
+
+    def reset_board(self):
+        self.game.reset_game()
+        self._update_display(msg="Ready?")
+        for button in self._cells.keys():
+            button.config(text="")
+            button.config(highlightbackground="lightblue")
+            button.config(fg="black")
 
 
 class TicTacToeGame:
@@ -197,6 +205,13 @@ class TicTacToeGame:
     def toggle_player(self):
         self.current_player = next(self._players)
         print(f"Current player: {self.current_player.label}")
+
+    def reset_game(self):
+        for row, row_content in enumerate(self._current_moves):
+            for col, _ in enumerate(row_content):
+                row_content[col] = Move(row, col)
+        self._has_winner = False
+        self.winner_combo = []
 
 
 def main():
