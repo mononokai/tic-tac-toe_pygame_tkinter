@@ -31,6 +31,7 @@ class TicTacToeBoard(tk.Tk):
         # non-public dictionary for cells of the board
         self._cells = {}
         self._game = game
+        self._create_menu()
         self._create_board_display()
         self._create_board_grid()
     
@@ -113,6 +114,24 @@ class TicTacToeBoard(tk.Tk):
             row, col = coordinates
             if (row, col) in self._game.winner_combo:
                 button.config(highlightbackground="red")
+
+    def _create_menu(self):
+        menu_bar = tk.Menu(master=self)
+        self.config(menu=menu_bar)
+        file_menu = tk.Menu(master=menu_bar)
+        file_menu.add_command(
+            label="Play Again",
+            command=self._game.reset_board,
+        )
+        file_menu.add_separator()
+        file_menu.add_command(
+            label="Exit",
+            command=quit,
+        )
+        menu_bar.add_cascade(
+            label="File",
+            menu=file_menu,
+        )
 
 
 class TicTacToeGame:
