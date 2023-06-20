@@ -92,11 +92,11 @@ class TicTacToeBoard(tk.Tk):
                 self._update_display(msg="Tie game!", color="red")
             elif self._game.has_winner():
                 self._highlight_cells()
-                msd = f"{self._game.current_player.label} won!"
+                msg = f"{self._game.current_player.label} won!"
                 color = self._game.current_player.color
                 self._update_display(msg, color)
             else:
-                self._game.toggle_player
+                self._game.toggle_player()
                 msg = f"{self._game.current_player.label}'s turn"
                 self._update_display(msg)
         
@@ -105,7 +105,7 @@ class TicTacToeBoard(tk.Tk):
         clicked_button.config(fg=self._game.current_player.color)
 
     def _update_display(self, msg, color="black"):
-        self.display["test"] = msg
+        self.display["text"] = msg
         self.display["fg"] = color
     
     def _highlight_cells(self):
@@ -177,6 +177,7 @@ class TicTacToeGame:
     
     def toggle_player(self):
         self.current_player = next(self._players)
+        print(f"Current player: {self.current_player.label}")
 
 
 def main():
